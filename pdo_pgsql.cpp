@@ -1,6 +1,8 @@
 #include "pdo_pgsql.h"
 #include "pdo_pgsql_connection.h"
 #include "pdo_pgsql_resource.h"
+#include "hphp/runtime/base/array-data.h"
+#include "hphp/runtime/base/array-init.h"
 
 namespace HPHP {
 
@@ -15,7 +17,7 @@ req::ptr<PDOResource> PDOPgSql::createResourceImpl() {
     return req::make<PDOPgSqlResource>(std::make_shared<PDOPgSqlConnection>());
 }
 
-req::ptr<PDOResource> PDOPgSql::createResource(const sp_PDOConnection& conn) {
+req::ptr<PDOResource> PDOPgSql::createResourceImpl(const sp_PDOConnection& conn) {
     return req::make<PDOPgSqlResource>(
         std::dynamic_pointer_cast<PDOPgSqlConnection>(conn)
     );
